@@ -55,8 +55,8 @@ public class BubbleSort {
 			}
 		}
 		
-		log.info("原数组:{},新数组:{}",oldarray,array);
-		log.info("数组长度:{},迭代次数:{}",array.length,num);
+//		log.info("原数组:{},新数组:{}",oldarray,array);
+//		log.info("数组长度:{},迭代次数:{}",array.length,num);
 		return array;
 	}
 	

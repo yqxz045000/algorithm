@@ -1,14 +1,12 @@
 package com.cfyj.algorithm.questions;
 
-import org.hibernate.validator.constraints.Length;
-
 /**
- * 求topK
+ * 求topK,基于堆排序求topK
  * 
  * @author chenfeng
  *
  */
-public class Test {
+public class TopKByHeapSort {
 
 	public static void main(String[] args) {
 		int arr[] = { 3, 2, 1, 5, 6, 4 };
@@ -27,9 +25,9 @@ public class Test {
 			adjust(nums, 0, j);//先构建大顶堆,从堆顶开始向下找最大的
 			swap(nums, 0, j-1);//交换到队尾-1为止
 		}
-		//可能会出现,top长度大于数组长度
+		//可能会出现,top长度大于数组长度,返回第一个值
 		if ( k > nums.length ) {
-			return nums[nums.length-1] ; 
+			return nums[0]; 
 		}else {
 			return nums[nums.length - k];			
 		}

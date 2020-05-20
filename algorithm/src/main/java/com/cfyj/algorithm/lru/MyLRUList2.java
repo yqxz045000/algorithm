@@ -4,7 +4,8 @@ import java.util.LinkedHashMap;
 
 /**
  * 基于LinkedHashMap可以实现LRU算法，维护了一条双向链表，记录了表头、表尾部元素，按照LRU算法特点，可以反向利用这条链表，新进入的元素在表的尾部，当访问新的元素时将其位置添加到链表的尾部，当存储空间不足时移除
- * 表头部元素
+ * 表头部元素---其实这个不是最优解,对于linkedHashMap而言本身就提供了实现LRU的策略.
+ * 
  * @author lius
  *
  */

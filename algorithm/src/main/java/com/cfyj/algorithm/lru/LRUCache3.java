@@ -13,17 +13,17 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-public class LRUCache2<K, V> {
+public class LRUCache3<K, V> {
 	private LinkedList<K> lru;
 	private Map<K, V> elements;
 	private int capacity;
 	private static final int DEFAULT_CAPACITY = 10;
 
-	LRUCache2() {
+	LRUCache3() {
 		this(DEFAULT_CAPACITY);
 	}
 
-	LRUCache2(int capacity) {
+	LRUCache3(int capacity) {
 		this.capacity = capacity;
 		lru = new LinkedList<>();
 		elements = new HashMap<>();
@@ -99,7 +99,7 @@ public class LRUCache2<K, V> {
 	}
 
 	public static void main(String[] args) {
-		LRUCache2<Integer, Integer> cache = new LRUCache2(2 /* 缓存容量 */ );
+		LRUCache3<Integer, Integer> cache = new LRUCache3(2 /* 缓存容量 */ );
 		cache.put(1, 1);
 		cache.put(2, 2);
 		cache.get(1); // 返回 1

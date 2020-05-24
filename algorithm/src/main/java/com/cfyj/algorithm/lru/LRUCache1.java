@@ -72,7 +72,7 @@ public class LRUCache1<K, V> {
   }
 
   public static void main(String[] args) {
-    LRUCache3<Integer, Integer> cache = new LRUCache3(2 /* 缓存容量 */ );
+    LRUCache2<Integer, Integer> cache = new LRUCache2(2 /* 缓存容量 */ );
     cache.put(1, 1);
     cache.put(2, 2);
     cache.get(1); // 返回 1

@@ -1,92 +1,119 @@
 package com.cfyj.algorithm.lru;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * LinkedHashMap： 
-  实现： 
-    LinkedHashMap继承自HashMap，重写了操作Node的方法，内部除使用HashMap维护K-V映射外，还会维护一条双向链表，记录元素插入顺序，每次修改元素时
-  都会维护链表。LinkedHashMap提供accessOrder参数，默认为false，代表： 按照访问顺序更改链表位置，头部为最近最少访问元素，尾部为最近最多访问元素，
-  可以说天然实现了LRU特性--get、getOrDefault、put（值被替换时也会更改顺序）等。
-  
-  使用LinkedHashMap实现LRU: 
-    LinkedHashMap提供removeEldestEntry， 代表是否移除最老元素，默认为false，为true则代表移除头部元素。
-    1.初始化LinkedHashMap时，将accessOrder 置为true代表对元素维护其访问顺序，此时链表变为一条记录操作顺序的双向链表，头部为最少访问，尾部为最多访问
-    2.覆盖LinkedHashMap.removeEldestEntry 方法，判断当size>=capacity时返回true，即代表移除最老元素，否则返回false，
-    elements = new LinkedHashMap(capacity,0.75f,true){
-        @Override
-        protected boolean removeEldestEntry(Map.Entry eldest) {
-            if(this.size() > capacity){
-                return true;
-            }
-            return false;
-        }
-    };
- * @author cf
- * @create 2020年5月14日
- * @param <K>
- * @param <V>
+ * 基于linkedList和HashMap实现.linkedList维护链表顺序,Map维护映射关系
+ * 
+ * @author chenfeng
+ *
  */
 @Slf4j
 public class LRUCache2<K, V> {
+	private LinkedList<K> lru;
+	private Map<K, V> elements;
+	private int capacity;
+	private static final int DEFAULT_CAPACITY = 10;
 
-  private LinkedHashMap<K, V> elements;
+	LRUCache2() {
+		this(DEFAULT_CAPACITY);
+	}
 
-  private int capacity;
+	LRUCache2(int capacity) {
+		this.capacity = capacity;
+		lru = new LinkedList<>();
+		elements = new HashMap<>();
+	}
 
-  private static final int DEFAULT_CAPACITY = 10;
+	public void put(K k, V v) {
+		if (checkToMax()) {
+			removeTail();
+		}
 
-  LRUCache2() {
-    this(DEFAULT_CAPACITY);
-  }
+		boolean flag = false;
+		V v1 = elements.put(k, v);
+		if (v1 != null) {
+			flag = true;
+		}
+		addHead(k, flag);
+	}
 
-  LRUCache2(int capacity) {
-    elements = new LinkedHashMap<K, V>(capacity, 0.75f, true) {
-      @Override
-      protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
-        if (this.size() > capacity) { // 这里不能使用=，因为当使用put时，元素新增了刚好到达临界值，而这里使用=会将元素扔出去
-          return true;
-        } else {
-          return false;
-        }
+	public V get(K k) {
+		V v = elements.get(k);
+		if (v != null) {
+			addHead(k, true); // 元素存在则先删除再放置到头部
+		}
+		return v;
+	}
 
-      }
+	public V remove(K k) {
 
-    };
-  }
+		if (elements.containsKey(k)) {
+			V v = elements.remove(k);
+			removeNode(k);
+			return v;
+		}
+		return null;
+	}
 
-  public V put(K k, V v) {
-    return elements.put(k, v);
-  }
+	private void removeNode(K k) {
+		lru.remove(k);
+	}
 
-  public V get(K k) {
-    return elements.get(k);
-  }
+	private void addHead(K k) {
+		addHead(k, false);
+	}
 
-  @Override
-  public String toString() {
-    return "LRUCache2 [elements=" + elements;
-  }
+	private void addHead(K k, boolean exist) {
 
-  public static void main(String[] args) {
-    LRUCache2<Integer, Integer> cache = new LRUCache2(2 /* 缓存容量 */ );
-    cache.put(1, 1);
-    cache.put(2, 2);
-    cache.get(1); // 返回 1
-    cache.put(3, 3); // 该操作会使得密钥 2 作废】
-    log.info("values1:{}", cache);
-    System.out.println(cache.get(2)); // 返回 -1 (未找到)
-    cache.put(4, 4); // 该操作会使得密钥 1 作废
-    log.info("values2:{}", cache);
-    System.out.println(cache.get(1)); // 返回 -1 (未找到)
-    log.info("values3:{}", cache);
-    cache.get(3); // 返回 3
-    log.info("values4:{}", cache);
-    cache.get(4); // 返回 4
-    log.info("values5:{}", cache);
-  }
+		if (exist) {
+			removeNode(k);
+		} else if (checkToMax()) {
+			removeTail();
+		}
+
+		lru.addFirst(k);
+	}
+
+	private void removeTail() {
+		K k = lru.pollLast();
+		if (k != null) {
+			elements.remove(k);
+		}
+	}
+
+	private boolean checkToMax() {
+		if (lru.size() >= capacity) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return lru.toString();
+	}
+
+	public static void main(String[] args) {
+		LRUCache2<Integer, Integer> cache = new LRUCache2(2 /* 缓存容量 */ );
+		cache.put(1, 1);
+		cache.put(2, 2);
+		cache.get(1); // 返回 1
+		cache.put(3, 3); // 该操作会使得密钥 2 作废】
+		log.info("values1:{}", cache);
+		System.out.println(cache.get(2)); // 返回 -1 (未找到)
+		cache.put(4, 4); // 该操作会使得密钥 1 作废
+		log.info("values2:{}", cache);
+		System.out.println(cache.get(1)); // 返回 -1 (未找到)
+		log.info("values3:{}", cache);
+		cache.get(3); // 返回 3
+		log.info("values4:{}", cache);
+		cache.get(4); // 返回 4
+		log.info("values5:{}", cache);
+	}
 
 }

@@ -1,4 +1,4 @@
-package com.cfyj.algorithm.lru;
+package com.cfyj.algorithm.lru.old;
 
 public interface LRU<K,V> {
 

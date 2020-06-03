@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
+ * 判定字符是否唯一:
+ * 
  * 实现一个算法，确定一个字符串 s 的所有字符是否全都不同。
 	示例 1：
 	输入: s = "leetcode"

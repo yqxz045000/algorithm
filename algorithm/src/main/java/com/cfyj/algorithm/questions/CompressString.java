@@ -1,5 +1,7 @@
 package com.cfyj.algorithm.questions;
 
+import java.util.LinkedHashMap;
+
 /**
  * 字符串压缩。利用字符重复出现的次数，编写一种方法，实现基本的字符串压缩功能。比如，字符串aabcccccaaa会变为a2b1c5a3。若“压缩”后的字符串没有变短，则返回原先的字符串。你可以假设字符串中只包含大小写英文字母（a至z）。
 
@@ -15,7 +17,6 @@ package com.cfyj.algorithm.questions;
 字符串长度在[0, 50000]范围内。
 	
 	解析:
-		1.暴力解法: 利用LinkedHashMap存储元素,key为元素本身,value为出现次数,存储完成后直接遍历输出元素,当次数为1时输出元素本身.
 		2.内存限制场景,当检测到元素重复出现时则压缩.
  * @author chenfeng
  *
@@ -46,7 +47,6 @@ public class CompressString {
         }
         return sb.append(cnt).length() < S.length()? sb.toString(): S;
     }
-	
-	
+
 	
 }

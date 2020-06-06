@@ -15,7 +15,7 @@ package com.cfyj.algorithm.questions;
  * @author chenfeng
  *
  */
-public class LengthOfLIS {
+public class 最长上升子序列 {
 
 	public static int lengthOfLIS(int[] nums) {
 		if (nums == null || nums.length == 0) {

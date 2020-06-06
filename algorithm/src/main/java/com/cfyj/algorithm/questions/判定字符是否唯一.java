@@ -31,7 +31,7 @@ import java.util.Map;
 			
  * @author chenfeng
  */
-public class IsUniqueStr {
+public class 判定字符是否唯一 {
 	
 	public static void main(String[] args) {
 		String astr = "l2etcod";

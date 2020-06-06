@@ -17,7 +17,7 @@ package com.cfyj.algorithm.questions;
  * @author chenfeng
  *
  */
-public class ReverseLink {
+public class 链表反转 {
 	
 	public static void main(String[] args) {
 		ListNode node1 = new ListNode(1);

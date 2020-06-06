@@ -21,7 +21,7 @@ import java.util.Set;
  * @author chenfeng
  *
  */
-public class FindRepeatNumber {
+public class 找出数组中重复的数字 {
 	
 	//散列表法
 	public static int findRepeatNumber(int[] nums) {

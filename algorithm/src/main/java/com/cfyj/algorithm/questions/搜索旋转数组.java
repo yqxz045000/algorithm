@@ -20,7 +20,7 @@ import java.util.List;
  * @author chenfeng
  *
  */
-public class SearchArray {
+public class 搜索旋转数组 {
 
 	public static int search(int[] arr, int target) {
 		if (arr == null || arr.length == 0) {

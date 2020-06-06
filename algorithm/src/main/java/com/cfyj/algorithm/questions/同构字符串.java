@@ -38,7 +38,7 @@ import java.util.Map;
  * @author chenfeng
  *
  */
-public class IsomorphicStrings {
+public class 同构字符串 {
 
 	//因时间问题,采用解法2去处理,后续有时间希望通过解法3去解
 	

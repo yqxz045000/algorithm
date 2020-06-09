@@ -16,7 +16,7 @@ import java.util.Arrays;
  * @author chenfeng
  *
  */
-public class TWONUMSUM {
+public class 两数之和求坐标1 {
 
     public static int[] twoSum(int[] nums, int target) {
         

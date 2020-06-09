@@ -25,7 +25,7 @@ import java.util.Map;
  * @author chenfeng
  *
  */
-public class TWONUMSUM2 {
+public class 两数之和求坐标2 {
 
 	public static int[] twoSum(int[] num, int target) {
 		//因为可能存在相同元素,则维护双层map解决重复元素问题

@@ -1,23 +1,21 @@
 package com.cfyj.algorithm.questions;
 
-import java.util.Arrays;
-
 /**
- * 求topK个元素,基于堆排序求topK
+ * 求topK,基于堆排序求topK
  * 
  * @author chenfeng
  *
  */
-public class TopKSByHeapSort {
+public class 求topK基于堆排序求topK {
 
 	public static void main(String[] args) {
 		int arr[] = { 3, 2, 1, 5, 6, 4 };
 //		int arr[] = {2,1};
-		int[] ks = findKthLargest(arr, 3);
-		System.out.println(Arrays.toString(ks));
+		int k = findKthLargest(arr, 2);
+		System.out.println(k);
 	}
 
-	public static int[] findKthLargest(int[] nums, int k) {
+	public static int findKthLargest(int[] nums, int k) {
 		for (int i = (nums.length / 2) - 1; i >= 0; i--) {
 			adjust(nums, i, nums.length);
 		}
@@ -29,9 +27,9 @@ public class TopKSByHeapSort {
 		}
 		//可能会出现,top长度大于数组长度,返回第一个值
 		if ( k > nums.length ) {
-			return nums; 
+			return nums[0]; 
 		}else {
-			return Arrays.copyOfRange(nums, nums.length - k, nums.length );//这里是绝对顺序,从1开始,所以尾部不需要减1			
+			return nums[nums.length - k];			
 		}
 	}
 

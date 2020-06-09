@@ -27,7 +27,7 @@ import java.util.Arrays;
 的用户
 	
  */
-public class SortedMergeArray {
+public class 合并排序数组 {
 	
 	public static void main(String[] args) {
 		int [] A = {1,2,3,0,0,0};

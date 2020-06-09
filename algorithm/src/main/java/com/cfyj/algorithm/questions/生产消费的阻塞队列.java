@@ -16,7 +16,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author chenfeng
  *
  */
-public class MyBlockingQueue<T> {
+public class 生产消费的阻塞队列<T> {
 
 	private int capacity = 0;
 
@@ -29,11 +29,11 @@ public class MyBlockingQueue<T> {
 	private Condition getWaitLockCondition;
 	private Condition setWaitLockCondition;
 
-	MyBlockingQueue() {
+	生产消费的阻塞队列() {
 		this(DEFAULT_CAPACITY);
 	}
 
-	MyBlockingQueue(int capacity) {
+	生产消费的阻塞队列(int capacity) {
 		this.capacity = capacity;
 		elementDatas = new LinkedList<>();
 		lock = new ReentrantLock();
@@ -112,7 +112,7 @@ public class MyBlockingQueue<T> {
 		CyclicBarrier cb1 = new CyclicBarrier(k);
 		CyclicBarrier cb2 = new CyclicBarrier(k);
 		AtomicInteger num = new AtomicInteger();
-		MyBlockingQueue<Integer> queue = new MyBlockingQueue<>(2);
+		生产消费的阻塞队列<Integer> queue = new 生产消费的阻塞队列<>(2);
 		for (int i = 0; i < k; i++) {
 			new Thread() {
 				public void run() {

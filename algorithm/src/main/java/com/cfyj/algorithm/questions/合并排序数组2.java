@@ -18,7 +18,7 @@ import java.util.Arrays;
 		2.取两边最大值不断放置到A的末尾,直到数组B遍历结束
 		
  */
-public class SortedMergeArray2 {
+public class 合并排序数组2 {
 	
 	public static void main(String[] args) {
 		int [] A = {1,2,3,0,0,0};

@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
  * @author chenfeng
  *
  */
-public class CompressString {
+public class 字符串压缩 {
 	
 	public static void main(String[] args) {
 		String aString = "aabcccccaaa";

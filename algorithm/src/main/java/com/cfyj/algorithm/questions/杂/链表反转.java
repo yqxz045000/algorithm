@@ -1,4 +1,4 @@
-package com.cfyj.algorithm.questions;
+package com.cfyj.algorithm.questions.杂;
 
 /**
  * 链表反转 示例: 输入: 1->2->3->4->5->NULL 输出: 5->4->3->2->1->NULL 进阶:
@@ -13,7 +13,11 @@ package com.cfyj.algorithm.questions;
  * 	2.双指针迭代解法:
  * 		维护两个节点: 前向节点和当前节点,不断将当前节点的next指向逻辑前向节点,维护tmp节点来保存下次迭代所需的当前节点.
  * 		核心: 就是不断维护前向节点和当前节点的关系.
- * 	
+ *  3.双指针迭代解法的另一种解释.
+ * 	特征: 右前向指向后向,不停触发的动作为 后向指向前向,那么只需要不断维护这个关系即可,采用双指针策略,维护pre next tmp几个元素,
+	pre为前向节点,next为后向节点,当next不存在时意味着前向节点没了,当后向节点存在时,先维护next.next--后面会作为next指针,将next.next指向pre--完成反转,pre就会变成原来的next,而此时的后向节点为next.next,又维护了这种关系
+	
+ * 
  * @author chenfeng
  *
  */
@@ -30,7 +34,7 @@ public class 链表反转 {
 		node3.next = node4;
 
 //		node1 = reverseList(node1, node1.next);
-		node1 = reverseList2(node1);
+		node1 = reverseList3(node1);
 		System.out.println(node1);
 	}
 	
@@ -60,6 +64,31 @@ public class 链表反转 {
 		return pre ; 		
 	}
 	
+	/**
+	 * 双指针解法3
+	 * @param head
+	 * @return
+	 */
+	public static ListNode reverseList3(ListNode head ) {
+		if(head==null) {
+			return head ; 
+		}
+		ListNode pre = head ; 
+		ListNode next =head.next  ; 
+		head.next = null ; 
+		ListNode tmp ;
+		
+		while(next!=null ) {
+			tmp = next.next;
+			next.next = pre ; 
+			pre = next ; 
+			next = tmp ; 			
+		}
+			
+		return pre;
+	}
+	
+	
 	
 	public static ListNode reverseList(ListNode node ,ListNode nextNode) {
 		
@@ -74,32 +103,6 @@ public class 链表反转 {
 		return node ;
 	}
 	
-
-	public static ListNode reverseList(ListNode head ) {
-		
-		
-		
-		
-		
-		ListNode cur = head; 
-		ListNode pre ; 
-		ListNode tmp ; 
-		
-		pre  = cur.next ; 
-		tmp = pre.next;
-		
-		
-		while(cur!=null&& cur.next!=null ) {
-			pre = cur.next;
-			tmp = pre.next;
-			pre.next = cur;
-			tmp = pre;
-		}
-		
-		
-		return cur ;
-	}
-
 }
 
 

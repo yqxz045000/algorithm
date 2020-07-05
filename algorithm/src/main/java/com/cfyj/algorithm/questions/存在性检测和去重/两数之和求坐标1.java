@@ -1,4 +1,4 @@
-package com.cfyj.algorithm.questions;
+package com.cfyj.algorithm.questions.存在性检测和去重;
 
 import java.util.Arrays;
 

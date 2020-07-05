@@ -1,4 +1,4 @@
-package com.cfyj.algorithm.questions;
+package com.cfyj.algorithm.questions.bit;
 /**
  * 找出数组中重复的数字。
 	在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字
@@ -37,21 +37,26 @@ public class 找出数组中重复的数字 {
 		return 0;
 	}
 	
-	//位图法:这里有个疑惑,当tmp [] = new int[100000>>3]; 时会处理错误,返回0
-	public static int findRepeatNumber2(int[] nums) {
-		int tmp [] = new int[100000];
-		for (int j = 0; j < tmp.length; j++) {
-			if((tmp[nums[j]>>3] | 1<<  (7^nums[j]) )== tmp[nums[j]>>3]) {
-				return nums[j];
-			}
-			tmp[nums[j]>>3] |= 1<<  (7^nums[j]);
+	//位图
+	public static int findRepeatNumber3(int[] nums) {
+		if(nums==null || nums.length==0) {
+			return -1 ;
 		}
-		return 0 ;
+		
+		byte[] bitMap = new byte [Integer.MAX_VALUE>>3+1];
+		for (int i = 0; i < nums.length; i++) {
+			if((bitMap[nums[i]>>3] | i<< (7 &nums[i]))==bitMap[nums[i]>>3]  ) {
+				return nums[i];
+			}
+			bitMap[nums[i]>>3] |= i<< (7 &nums[i]);		
+		}
+		
+		return -1 ; 	
 	}
 	
 	public static void main(String[] args) {
 		int nums[] = {26950,26950, 1, 0, 2, 5, 26950 };
-		System.out.println(findRepeatNumber2(nums));
+		System.out.println(findRepeatNumber3(nums));
 	}
 
 }

@@ -55,7 +55,7 @@ public class 链表反转 {
 		while (cur !=null ) {
 			tmp = cur.next;
 			cur.next = pre ; 
-			if(pre.next == cur) {
+			if(pre.next == cur) {//原先头指针维护了后向索引相同,需要清空引用.
 				pre.next =null;
 			}
 			pre = cur;

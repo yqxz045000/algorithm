@@ -1,4 +1,4 @@
-package com.cfyj.algorithm.questions;
+package com.cfyj.algorithm.questions.双指针;
 
 import java.util.Arrays;
 import java.util.Collections;

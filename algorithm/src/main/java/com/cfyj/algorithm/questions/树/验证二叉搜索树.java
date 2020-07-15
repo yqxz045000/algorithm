@@ -1,6 +1,7 @@
 package com.cfyj.algorithm.questions.树;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,76 +19,108 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  */
 public class 验证二叉搜索树 {
+	
+	   public static boolean isValidBST(TreeNode root) {
+		    //左边全小于根，右边全大于根
+		    boolean flag = true ; 
+		    if(root!=null) {
+		      if(root.left != null &&   root.val <= root.left.val  ) {
+		        return false ;
+		      }else if(root.left != null){
+		    	  flag  = checkLeftTree(root.left, root.val) ;
+		      }
+		     
+		      if(flag && root.right != null &&  root.val >= root.right.val  ){
+		        return false ;
+		      }else if(flag && root.right != null){
+		        return checkRightTree(root.right, root.val) ;
+		      }
+		  }
+		    return flag;
+	   }
+		 
+		  public static boolean checkLeftTree(TreeNode node , int max){
+		   
+		    if(node!=null) {
+		      if(node.left != null &&  ( node.val <= node.left.val  |  node.left.val >= max )) {
+		        return false ;
+		      }else if(node.left != null){
+		         if(!checkLeftTree(node.left, max)) {
+		        	return false;  
+		         } 
+		      }
+		     
+		      if(node.right != null &&  ( node.val >= node.right.val | node.right.val >= max) ){
+		        return false ;
+		      }else if(node.right != null){
+		    	  if(!checkLeftTree(node.right, max) ) {
+		    		  return false ; 
+		    	  }
+		      }
+		    }
+		    return true ;
+		   
+		  }
+		 
+		  public static boolean checkRightTree(TreeNode node , int min){
+		   
+		    if(node!=null) {
+		      if(node.left != null &&  ( node.val <= node.left.val  |  node.left.val <= min ) ){
+		        return false ;
+		      }else if(node.left != null){
+		    	  if(! checkRightTree(node.left, min) ) {
+		    		  return false ; 
+		    	  }
+		      }
+		     
+		      if(node.right != null &&  ( node.val >= node.right.val | node.right.val <= min) ){
+		        return false ;
+		      }else if(node.right != null){
+		    	  if(! checkRightTree(node.right, min) ) {
+		    		  return false ;
+		    	  }
+		      }
+		    }
+		    return true ;  
+		  }
+		  
+		  
+//	public static boolean isValidBST2(TreeNode root, TreeNode preNode) {
+//		if (root == null) {
+//			return true;
+//		}
+//
+//		if (root.left != null) {
+//			if (root.val <= root.left.val) {
+//				return false;
+//			} else {
+//				if (!isValidBST(root.left ,root )) { // 只有在下层不满足条件时才直接返回，否则将继续左右树做判断
+//					return false;
+//				}
+//				;
+//			}
+//		}
+//
+//		if (root.right != null) {
+//			if (root.val >= root.right.val) {
+//				return false;
+//			}else if(preNode.val < root.right.val ){
+//				
+//			} else {
+//				if (!isValidBST(root.right,root)) {// 只有在下层不满足条件时才直接返回，否则将继续左右树做判断
+//					return false;
+//				}
+//			}
+//		}
+//		return true; // 无左右节点，直接返回
+//	}
 
-	public static boolean isValidBST(TreeNode root, TreeNode preNode) {
-		if (root == null) {
-			return true;
-		}
+	
+	
+	
+	
+	
 
-		if (root.left != null) {
-			if (root.val <= root.left.val) {
-				return false;
-			} else {
-				if (!isValidBST(root.left ,root )) { // 只有在下层不满足条件时才直接返回，否则将继续左右树做判断
-					return false;
-				}
-				;
-			}
-		}
-
-		if (root.right != null) {
-			if (root.val >= root.right.val) {
-				return false;
-			}else if(preNode.val < root.right.val ){
-				
-			} else {
-				if (!isValidBST(root.right,root)) {// 只有在下层不满足条件时才直接返回，否则将继续左右树做判断
-					return false;
-				}
-			}
-		}
-		return true; // 无左右节点，直接返回
-	}
-
-	
-	
-	
-	
-	
-	public static boolean isValidBST2(TreeNode root) {
-		Queue<TreeNode> queue  = new ArrayDeque<TreeNode>();
-		
-		if (root == null) {
-			return true;
-		}else {
-			queue.add(root);
-		}
-		
-		while(!queue.isEmpty()) {
-
-			TreeNode node = queue.poll();
-			
-			if(node.left!=null ) {
-				if (node.val <= node.left.val) {
-					return false;
-				} else {
-					queue.add(node.left);
-				}
-			}
-			if(node.right!=null ) {
-				if (node.val >= node.right.val) {
-					return false;
-				} else {
-					queue.add(node.right);
-				}
-			}
-			
-		}
-
-		
-	}
-	
-	
 	
 	
 	
@@ -98,25 +131,27 @@ public class 验证二叉搜索树 {
 	
 	
 	public static void main(String[] args) {
-		TreeNode root = new TreeNode(10);
-		TreeNode root_left = new TreeNode(5);
-		TreeNode root_right = new TreeNode(15);
-		root.left = root_left;
-		root.right = root_right;
-//		    TreeNode root_left_left = new TreeNode(2);
-//		    TreeNode root_left_right = new TreeNode(7);
-//		    root.left.left = root_left_left;
-//		    root.left.right = root_left_right;
-		TreeNode root_right_left = new TreeNode(6);
-		TreeNode root_right_right = new TreeNode(20);
-		root.right.left = root_right_left;
-		root.right.right = root_right_right;
-//		    cengxu_stack(root); //10,5,15,2,7,17
-//		    TreeNode left_1 = new TreeNode(1);
-//		    TreeNode left_2 = new TreeNode(0);
-//		    root.left.left.left = left_1;
-//		    root.left.left.left.left = left_2;
-		System.out.println(isValidBST(root));
+//		TreeNode root = new TreeNode(3);
+//		TreeNode root_left = new TreeNode(1);
+//		TreeNode root_right = new TreeNode(5);
+//		root.left = root_left;
+//		root.right = root_right;
+//
+//		TreeNode root_right_left = new TreeNode(0);
+//		TreeNode root_right_right = new TreeNode(2);
+//		root.left.left = root_right_left;
+//		root.left.right = root_right_right;
+//		root.left.right.right = new TreeNode(3);
+//		
+//		
+//		System.out.println(isValidBST(root));
+		
+//		System.out.println(tableSizeFor(19));
+
 	}
 
+	
+
+    
+    
 }

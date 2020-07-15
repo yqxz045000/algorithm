@@ -1,4 +1,4 @@
-package com.cfyj.algorithm.questions;
+package com.cfyj.algorithm.questions.二分查找;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +78,17 @@ public class 搜索旋转数组 {
 		}
 
 		return -1;
+	}
+	
+	public static int search2(int[] arr, int target) {
+		
+		for (int i = 0; i < arr.length; i++) {
+			if(target == arr[i]) {
+				return i ; 
+			}
+		}
+		
+		return -1 ; 
 	}
 
 	public static void main(String[] args) {

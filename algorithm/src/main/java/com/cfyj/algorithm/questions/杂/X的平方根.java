@@ -1,4 +1,4 @@
-package com.cfyj.algorithm.questions;
+package com.cfyj.algorithm.questions.杂;
 
 import javax.sound.midi.MidiChannel;
 
